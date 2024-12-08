@@ -10,10 +10,10 @@ import {
   TextInput,
 } from "react-native";
 import TaskItem from "../components/TaskItem";
-import { useTodoContext } from "../contexts/useTodoContext";
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from "uuid";
 import { TodoProps } from "../contexts/TodoContext";
+import useTodoContext from "../contexts/useTodoContext";
 
 const Home = () => {
   const { todos, addTodo } = useTodoContext();

@@ -1,8 +1,8 @@
 import { FC, useEffect, useState } from "react";
-import { TodoContext, TodoProps } from "./TodoContext";
+import TodoContext, { TodoProps } from "./TodoContext";
 import * as SecureStore from "expo-secure-store";
 
-export const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
+const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const STORE_ACCESS_KEY = "todos";
 
@@ -50,3 +50,5 @@ export const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     </TodoContext.Provider>
   );
 };
+
+export default TodoProvider;

@@ -13,4 +13,6 @@ export interface TodoContextProps {
   deleteTodo: (id: string) => void;
 }
 
-export const TodoContext = createContext<TodoContextProps | null>(null);
+const TodoContext = createContext<TodoContextProps | null>(null);
+
+export default TodoContext;
