@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,9 +11,26 @@ import {
 } from "react-native";
 import TaskItem from "../components/TaskItem";
 import { useTodoContext } from "../contexts/useTodoContext";
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from "uuid";
+import { TodoProps } from "../contexts/TodoContext";
 
 const Home = () => {
-  const { todos } = useTodoContext();
+  const { todos, addTodo } = useTodoContext();
+  const [title, setTitle] = useState<string | undefined>(undefined);
+
+  const add = () => {
+    if (title) {
+      const todo: TodoProps = {
+        title,
+        completed: false,
+        id: uuidv4(),
+      };
+      addTodo(todo);
+      setTitle(undefined);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -26,8 +43,8 @@ const Home = () => {
           <Text style={styles.title}>Thunk's todos</Text>
           <View style={styles.todoItems}>
             {todos.map((todo, index) => (
-              <TouchableOpacity>
-                <TaskItem title={todo.title} id={todo.id} status={todo.status} />
+              <TouchableOpacity key={index}>
+                <TaskItem title={todo.title} id={todo.id} completed={todo.completed} />
               </TouchableOpacity>
             ))}
           </View>
@@ -36,8 +53,13 @@ const Home = () => {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           style={styles.todoInputContainer}
         >
-          <TextInput style={styles.input} placeholder={"Write a task"} />
-          <TouchableOpacity>
+          <TextInput
+            style={styles.input}
+            placeholder={"Write a task"}
+            value={title}
+            onChangeText={(text) => setTitle(text)}
+          />
+          <TouchableOpacity onPress={add}>
             <View style={styles.addButton}>
               <Text>+</Text>
             </View>

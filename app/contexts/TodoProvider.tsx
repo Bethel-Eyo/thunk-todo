@@ -39,7 +39,7 @@ export const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) =>
     storeTodosUpdate(updatedTodos);
   };
 
-  const deleteTodo = (id: number) => {
+  const deleteTodo = (id: string) => {
     const remainingTodos = todos.filter((todo) => todo.id !== id);
     storeTodosUpdate(remainingTodos);
   };

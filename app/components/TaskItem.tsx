@@ -6,7 +6,7 @@ interface TaskItemProps {
     todoText: string;
 }
 
-const TaskItem: FC<TodoProps> = ({ id, title, status}) => {
+const TaskItem: FC<TodoProps> = ({ id, title, completed}) => {
 
   return (
     <View style={styles.item}>
