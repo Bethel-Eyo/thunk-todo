@@ -1,17 +1,18 @@
 import React, { FC } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { TodoProps } from '../contexts/TodoContext';
 
 interface TaskItemProps {
     todoText: string;
 }
 
-const TaskItem: FC<TaskItemProps> = ({ todoText }) => {
+const TaskItem: FC<TodoProps> = ({ id, title, status}) => {
 
   return (
     <View style={styles.item}>
       <View style={styles.itemLeft}>
         <View style={styles.square}></View>
-        <Text style={styles.todoText}>{todoText}</Text>
+        <Text style={styles.todoText}>{title}</Text>
       </View>
       <View style={styles.circular}></View>
     </View>

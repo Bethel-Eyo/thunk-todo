@@ -1,8 +1,10 @@
-import { Text, View } from "react-native";
 import Home from "./screens/Home";
+import { TodoProvider } from "./contexts/TodoProvider";
 
 export default function Index() {
   return (
-    <Home />
+    <TodoProvider>
+      <Home />
+    </TodoProvider>
   );
 }

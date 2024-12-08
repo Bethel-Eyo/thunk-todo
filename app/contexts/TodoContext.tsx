@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export interface TodoProps {
   id: number;
-  text: string;
+  title: string;
   status: boolean;
 }
 export interface TodoContextProps {

@@ -10,8 +10,10 @@ import {
   TextInput,
 } from "react-native";
 import TaskItem from "../components/TaskItem";
+import { useTodoContext } from "../contexts/useTodoContext";
 
 const Home = () => {
+  const { todos } = useTodoContext();
   return (
     <View style={styles.container}>
       <ScrollView
@@ -23,9 +25,11 @@ const Home = () => {
         <View style={styles.todosContainer}>
           <Text style={styles.title}>Thunk's todos</Text>
           <View style={styles.todoItems}>
-            <TouchableOpacity>
-              <TaskItem todoText="This is a todo text" />
-            </TouchableOpacity>
+            {todos.map((todo, index) => (
+              <TouchableOpacity>
+                <TaskItem title={todo.title} id={todo.id} status={todo.status} />
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
         <KeyboardAvoidingView
@@ -34,10 +38,10 @@ const Home = () => {
         >
           <TextInput style={styles.input} placeholder={"Write a task"} />
           <TouchableOpacity>
-          <View style={styles.addButton}>
-            <Text>+</Text>
-          </View>
-        </TouchableOpacity>
+            <View style={styles.addButton}>
+              <Text>+</Text>
+            </View>
+          </TouchableOpacity>
         </KeyboardAvoidingView>
       </ScrollView>
     </View>
@@ -82,11 +86,11 @@ const styles = StyleSheet.create({
   addButton: {
     width: 60,
     height: 60,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     borderRadius: 60,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: '#C0C0C0',
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "#C0C0C0",
     borderWidth: 1,
   },
 });
