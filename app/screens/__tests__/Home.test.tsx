@@ -1,9 +1,9 @@
+import { fireEvent, render } from "@testing-library/react-native";
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react-native";
-import Home from "../Home";
-import useHomeLogic from "../useHomeLogic";
 import { Animated } from "react-native";
 import TodoProvider from "../../contexts/TodoProvider";
+import Home from "../Home";
+import useHomeLogic from "../useHomeLogic";
 
 // Mock `useHomeLogic` to control its behavior in tests
 jest.mock("../useHomeLogic");
