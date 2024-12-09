@@ -21,6 +21,7 @@ const AnimatedModal: FC<AnimatedModalProps> = ({ closeModal, modalVisible, slide
       transparent={true}
       animationType="none" // Disable default modal animations
       onRequestClose={closeModal}
+      testID="animated-modal"
     >
       <Animated.View style={[styles.modalContainer, { transform: [{ translateY: slideAnim }] }]}>
         <View style={styles.modalContent}>

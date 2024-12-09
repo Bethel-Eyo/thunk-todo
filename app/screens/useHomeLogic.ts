@@ -1,7 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
 import { Animated, Dimensions } from "react-native";
-import "react-native-get-random-values";
-import { v4 as uuidv4 } from "uuid";
 import { TodoProps } from "../contexts/TodoContext";
 import useTodoContext from "../contexts/useTodoContext";
 
@@ -37,7 +35,7 @@ const useHomeLogic = () => {
       const todo: TodoProps = {
         title,
         completed: false,
-        id: uuidv4(),
+        id: Date.now().toString(),
       };
       addTodo(todo);
       setTitle(undefined);
