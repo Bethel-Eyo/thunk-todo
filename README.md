@@ -1,50 +1,26 @@
-# Welcome to your Expo app 👋
+# Welcome to Thunk-todo 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+### Description
 
-## Get started
+Thunk-todo is a react native application built with the expo framework that enables a user to be able to create, read, update and delete their todos.
 
-1. Install dependencies
+## Functional requirements implemented
 
-   ```bash
-   npm install
-   ```
+- ✅ The Home screen displays a list of tasks
+- ✅ There is an input field where users can add a new task to the list.
+- ✅ Each task has a title, and status (completed or not).
+- ✅ Users are be able to mark tasks as completed or uncompleted by tapping on them.
+- ✅ There is a mechanism to delete tasks from the list.
+- ✅ React's Context API was use for global state management
+- ✅ Data persistence was implemented to ensure that tasks are saved even if the app is closed or restarted.
+- ✅ filtering options were implemented to allow users to view different subsets of tasks based on their status (completed or uncompleted) via filter radio buttons to switch between different views.
+- ✅ Implemented a feature that allows users to edit task details directly from the task list.
+- ✅ Added some animated modal for when user updates a task's status to enhance the visual appeal.
+- ✅ Added Unit tests to cover all the files.
 
-2. Start the app
+### Other things that can be done to make this more production ready.
 
-   ```bash
-    npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+1. Integration of tools to help capture exceptions using tools like sentry.
+2. Implement UI-automation tests using detox that would run on the CI/CD pipelines. e.t.c
+3. pre-commit hooks to run linting and prettier formatting before being able to commit the code.
+4. Implement jobs to ensure 100% test coverage on new code on the CI/CD pipelines before they pass. (this should be required alongside two approvals from other team members after review before the developer is able to merge a feature to the main branch).
