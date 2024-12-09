@@ -19,7 +19,7 @@ const TaskItem: FC<TodoProps> = ({ id, title, completed }) => {
         </View>
         <Text style={styles.todoText}>{title}</Text>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => deleteTodo(id)}>
         <MaterialIcons name="delete" size={20} color="red" />
       </TouchableOpacity>
     </View>
