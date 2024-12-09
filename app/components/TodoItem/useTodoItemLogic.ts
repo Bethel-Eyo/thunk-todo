@@ -1,6 +1,6 @@
 import { TodoProps } from "@/app/contexts/TodoContext";
 import useTodoContext from "@/app/contexts/useTodoContext";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { TextInput } from "react-native";
 
 const useTodoItemLogic = ({ id, title, completed }: TodoProps) => {
@@ -9,16 +9,16 @@ const useTodoItemLogic = ({ id, title, completed }: TodoProps) => {
   const [text, setText] = useState(title);
   const textInputRef = useRef<TextInput>(null);
 
-  const onEdit = () => {
+  const onEdit = useCallback(() => {
     setEditable(true);
     if (textInputRef.current) {
       setTimeout(() => {
         textInputRef.current?.focus();
       }, 0); // Ensure focus happens after state update
     }
-  };
+  },[]);
 
-  const onSave = () => {
+  const onSave = useCallback(() => {
     const updatedTodo: TodoProps = {
       title: text,
       completed,
@@ -26,7 +26,7 @@ const useTodoItemLogic = ({ id, title, completed }: TodoProps) => {
     };
     editTodo(updatedTodo);
     setEditable(false);
-  };
+  }, [completed, editTodo, id, text]);
 
   return useMemo(
     () => ({ deleteTodo, editable, setText, onSave, onEdit, text, textInputRef }),

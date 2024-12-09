@@ -1,12 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import {
   Animated,
   Modal,
-  TouchableOpacity,
-  View,
   StyleSheet,
-  Dimensions,
   Text,
+  TouchableOpacity,
+  View
 } from "react-native";
 
 interface AnimatedModalProps {

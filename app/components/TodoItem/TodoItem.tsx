@@ -1,8 +1,7 @@
-import React, { FC, useRef, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { TodoProps } from "../../contexts/TodoContext";
 import { MaterialIcons } from "@expo/vector-icons";
-import useTodoContext from "../../contexts/useTodoContext";
+import React, { FC } from "react";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { TodoProps } from "../../contexts/TodoContext";
 import useTodoItemLogic from "./useTodoItemLogic";
 
 const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
