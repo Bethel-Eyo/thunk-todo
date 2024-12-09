@@ -5,13 +5,15 @@ import * as SecureStore from "expo-secure-store";
 const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   const [todos, setTodos] = useState<TodoProps[]>([]);
   const STORE_ACCESS_KEY = "todos";
+  const [completedTodos, setCompletedTodos] = useState<TodoProps[]>([]);
+  const [uncompletedTodos, setUncompletedTodos] = useState<TodoProps[]>([]);
 
   useEffect(() => {
     const getTodos = async () => {
       try {
         const todoListString = await SecureStore.getItemAsync(STORE_ACCESS_KEY);
         const todos: TodoProps[] = todoListString ? JSON.parse(todoListString) : [];
-        setTodos(todos);
+        updateStates(todos);
       } catch (error) {
         console.debug(error);
       }
@@ -20,10 +22,18 @@ const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
     getTodos();
   }, []);
 
+  const updateStates = (todos: TodoProps[]) => {
+    setTodos(todos);
+    const todosCompleted = todos.filter((todo) => todo.completed === true);
+    const todosNotCompleted = todos.filter((todo) => todo.completed === false);
+    setCompletedTodos(todosCompleted);
+    setUncompletedTodos(todosNotCompleted);
+  };
+
   const storeTodosUpdate = async (todos: TodoProps[]) => {
     try {
       await SecureStore.setItemAsync(STORE_ACCESS_KEY, JSON.stringify(todos));
-      setTodos(todos);
+      updateStates(todos);
     } catch (error) {
       console.debug(error);
     }
@@ -45,7 +55,9 @@ const TodoProvider: FC<{ children: React.ReactNode }> = ({ children }) => {
   };
 
   return (
-    <TodoContext.Provider value={{ todos, setTodos, addTodo, editTodo, deleteTodo }}>
+    <TodoContext.Provider
+      value={{ todos, setTodos, addTodo, editTodo, deleteTodo, completedTodos, uncompletedTodos }}
+    >
       {children}
     </TodoContext.Provider>
   );

@@ -7,6 +7,8 @@ export interface TodoProps {
 }
 export interface TodoContextProps {
   todos: TodoProps[];
+  completedTodos: TodoProps[];
+  uncompletedTodos: TodoProps[];
   setTodos: React.Dispatch<React.SetStateAction<TodoProps[]>>;
   addTodo: (todo: TodoProps) => void;
   editTodo: (todo: TodoProps) => void;

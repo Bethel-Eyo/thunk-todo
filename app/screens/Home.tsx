@@ -16,8 +16,10 @@ import { TodoProps } from "../contexts/TodoContext";
 import useTodoContext from "../contexts/useTodoContext";
 
 const Home = () => {
-  const { todos, addTodo, editTodo } = useTodoContext();
+  const { todos, addTodo, editTodo, completedTodos, uncompletedTodos } = useTodoContext();
   const [title, setTitle] = useState<string | undefined>(undefined);
+  const [selectedOption, setSelectedOption] = useState<string>("All");
+  const options = ["All", "Completed", "Uncompleted"];
 
   const add = () => {
     if (title) {
@@ -51,31 +53,65 @@ const Home = () => {
       >
         <View style={styles.todosContainer}>
           <Text style={styles.title}>Thunk's todos</Text>
-          <View style={styles.todoItems}>
-            {todos.map((todo, index) => (
-              <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
-                <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
+          <View style={styles.radioContainer}>
+            {options.map((option) => (
+              <TouchableOpacity
+                key={option}
+                style={styles.radioItem}
+                onPress={() => setSelectedOption(option)}
+              >
+                <View style={[styles.radioCircle, selectedOption === option && styles.selected]} />
+                <Text style={styles.radioLabel}>{option}</Text>
               </TouchableOpacity>
             ))}
           </View>
-        </View>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          style={styles.todoInputContainer}
-        >
-          <TextInput
-            style={styles.input}
-            placeholder={"Write a task"}
-            value={title}
-            onChangeText={(text) => setTitle(text)}
-          />
-          <TouchableOpacity onPress={add}>
-            <View style={styles.addButton}>
-              <Text>+</Text>
+          {selectedOption === "All" && (
+            <View style={styles.todoItems}>
+              {todos.map((todo, index) => (
+                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+                  <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
+                </TouchableOpacity>
+              ))}
             </View>
-          </TouchableOpacity>
-        </KeyboardAvoidingView>
+          )}
+
+          {selectedOption === "Completed" && (
+            <View style={styles.todoItems}>
+              {completedTodos.map((todo, index) => (
+                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+                  <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+
+          {selectedOption === "Uncompleted" && (
+            <View style={styles.todoItems}>
+              {uncompletedTodos.map((todo, index) => (
+                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+                  <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
+                </TouchableOpacity>
+              ))}
+            </View>
+          )}
+        </View>
       </ScrollView>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        style={styles.todoInputContainer}
+      >
+        <TextInput
+          style={styles.input}
+          placeholder={"Write a task"}
+          value={title}
+          onChangeText={(text) => setTitle(text)}
+        />
+        <TouchableOpacity onPress={add}>
+          <View style={styles.addButton}>
+            <Text>+</Text>
+          </View>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     </View>
   );
 };
@@ -124,5 +160,30 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderColor: "#C0C0C0",
     borderWidth: 1,
+  },
+  radioContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginTop: 15,
+  },
+  radioCircle: {
+    height: 20,
+    width: 20,
+    borderRadius: 10,
+    borderWidth: 2,
+    borderColor: "#4CAF50",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  selected: {
+    backgroundColor: "#4CAF50",
+  },
+  radioLabel: {
+    marginLeft: 5,
+    fontSize: 16,
+  },
+  radioItem: {
+    flexDirection: "row",
+    marginRight: 10,
   },
 });
