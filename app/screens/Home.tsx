@@ -10,13 +10,13 @@ import {
   TextInput,
 } from "react-native";
 import TaskItem from "../components/TaskItem";
-import 'react-native-get-random-values';
+import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { TodoProps } from "../contexts/TodoContext";
 import useTodoContext from "../contexts/useTodoContext";
 
 const Home = () => {
-  const { todos, addTodo } = useTodoContext();
+  const { todos, addTodo, editTodo } = useTodoContext();
   const [title, setTitle] = useState<string | undefined>(undefined);
 
   const add = () => {
@@ -31,6 +31,16 @@ const Home = () => {
     }
   };
 
+  const markAsCompleted = (todo: TodoProps) => {
+    const { title, completed, id } = todo;
+    const updatedTodo: TodoProps = {
+      title,
+      completed: !completed,
+      id,
+    };
+    editTodo(updatedTodo);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView
@@ -43,7 +53,7 @@ const Home = () => {
           <Text style={styles.title}>Thunk's todos</Text>
           <View style={styles.todoItems}>
             {todos.map((todo, index) => (
-              <TouchableOpacity key={index}>
+              <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
                 <TaskItem title={todo.title} id={todo.id} completed={todo.completed} />
               </TouchableOpacity>
             ))}
