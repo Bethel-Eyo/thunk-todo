@@ -52,7 +52,6 @@ const useHomeLogic = () => {
       id,
     };
     editTodo(updatedTodo);
-    setSelectedOption("All");
     openModal();
   },[editTodo, openModal]);
 

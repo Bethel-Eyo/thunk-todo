@@ -57,8 +57,8 @@ const Home = () => {
           </View>
           {selectedOption === "All" && (
             <View style={styles.todoItems}>
-              {todos.map((todo, index) => (
-                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+              {todos.map((todo) => (
+                <TouchableOpacity key={todo.id} onPress={() => markAsCompleted(todo)}>
                   <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
                 </TouchableOpacity>
               ))}
@@ -67,8 +67,8 @@ const Home = () => {
 
           {selectedOption === "Completed" && (
             <View style={styles.todoItems}>
-              {completedTodos.map((todo, index) => (
-                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+              {completedTodos.map((todo) => (
+                <TouchableOpacity key={todo.id} onPress={() => markAsCompleted(todo)}>
                   <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
                 </TouchableOpacity>
               ))}
@@ -77,8 +77,8 @@ const Home = () => {
 
           {selectedOption === "Uncompleted" && (
             <View style={styles.todoItems}>
-              {uncompletedTodos.map((todo, index) => (
-                <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
+              {uncompletedTodos.map((todo) => (
+                <TouchableOpacity key={todo.id} onPress={() => markAsCompleted(todo)}>
                   <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
                 </TouchableOpacity>
               ))}
