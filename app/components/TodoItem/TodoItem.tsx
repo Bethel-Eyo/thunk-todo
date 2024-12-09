@@ -23,6 +23,7 @@ const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
           </View>
           <TextInput
             ref={textInputRef}
+            testID={`ListTextInput-${id}`}
             multiline={true}
             editable={editable}
             style={styles.todoText}
@@ -32,15 +33,15 @@ const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
         </View>
         <View>
           {editable ? (
-            <TouchableOpacity onPress={onSave}>
+            <TouchableOpacity testID="save-icon" onPress={onSave}>
               <MaterialIcons name="save" size={20} color="blue" />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={onEdit}>
+            <TouchableOpacity testID="edit-icon" onPress={onEdit}>
               <MaterialIcons name="edit" size={20} color="grey" />
             </TouchableOpacity>
           )}
-          <TouchableOpacity style={styles.deleteIcon} onPress={() => deleteTodo(id)}>
+          <TouchableOpacity testID="delete-icon" style={styles.deleteIcon} onPress={() => deleteTodo(id)}>
             <MaterialIcons name="delete" size={20} color="red" />
           </TouchableOpacity>
         </View>
