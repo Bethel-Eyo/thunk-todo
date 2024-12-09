@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   View
 } from "react-native";
-
-import "react-native-get-random-values";
 import AnimatedModal from "../components/AnimatedModal/AnimatedModal";
 import TodoItem from "../components/TodoItem/TodoItem";
 import useHomeLogic from "./useHomeLogic";
