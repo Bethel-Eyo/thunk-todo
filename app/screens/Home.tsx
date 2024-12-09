@@ -8,18 +8,41 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
+  Animated,
+  Dimensions,
 } from "react-native";
 import TodoItem from "../components/TodoItem";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { TodoProps } from "../contexts/TodoContext";
 import useTodoContext from "../contexts/useTodoContext";
+import AnimatedModal from "../components/AnimatedModal";
 
 const Home = () => {
   const { todos, addTodo, editTodo, completedTodos, uncompletedTodos } = useTodoContext();
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [selectedOption, setSelectedOption] = useState<string>("All");
   const options = ["All", "Completed", "Uncompleted"];
+  const [modalVisible, setModalVisible] = useState(false);
+  const { height } = Dimensions.get("window");
+  const [slideAnim] = useState(new Animated.Value(height)); // Initial position off-screen
+
+  const openModal = () => {
+    setModalVisible(true);
+    Animated.timing(slideAnim, {
+      toValue: 0, // Slide up to show modal
+      duration: 300,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  const closeModal = () => {
+    Animated.timing(slideAnim, {
+      toValue: height, // Slide down to hide modal
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => setModalVisible(false));
+  };
 
   const add = () => {
     if (title) {
@@ -41,6 +64,8 @@ const Home = () => {
       id,
     };
     editTodo(updatedTodo);
+    setSelectedOption("All");
+    openModal();
   };
 
   return (
@@ -112,6 +137,7 @@ const Home = () => {
           </View>
         </TouchableOpacity>
       </KeyboardAvoidingView>
+      <AnimatedModal closeModal={closeModal} modalVisible={modalVisible} slideAnim={slideAnim} />
     </View>
   );
 };
