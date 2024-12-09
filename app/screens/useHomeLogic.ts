@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { Dimensions, Animated } from "react-native";
 import { TodoProps } from "../contexts/TodoContext";
 import useTodoContext from "../contexts/useTodoContext";
@@ -23,15 +23,15 @@ const useHomeLogic = () => {
     }).start();
   };
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     Animated.timing(slideAnim, {
       toValue: height, // Slide down to hide modal
       duration: 300,
       useNativeDriver: true,
     }).start(() => setModalVisible(false));
-  };
+  }, []);
 
-  const add = () => {
+  const add = useCallback(() => {
     if (title) {
       const todo: TodoProps = {
         title,
@@ -41,9 +41,9 @@ const useHomeLogic = () => {
       addTodo(todo);
       setTitle(undefined);
     }
-  };
+  }, []);
 
-  const markAsCompleted = (todo: TodoProps) => {
+  const markAsCompleted = useCallback((todo: TodoProps) => {
     const { title, completed, id } = todo;
     const updatedTodo: TodoProps = {
       title,
@@ -53,7 +53,7 @@ const useHomeLogic = () => {
     editTodo(updatedTodo);
     setSelectedOption("All");
     openModal();
-  };
+  }, []);
 
   return useMemo(
     () => ({
