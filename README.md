@@ -9,13 +9,13 @@ Thunk-todo is a react native application built with the expo framework that enab
 - ✅ The Home screen displays a list of tasks
 - ✅ There is an input field where users can add a new task to the list.
 - ✅ Each task has a title, and status (completed or not).
-- ✅ Users are be able to mark tasks as completed or uncompleted by tapping on them.
+- ✅ Users are able to mark tasks as completed or uncompleted by tapping on them.
 - ✅ There is a mechanism to delete tasks from the list.
 - ✅ React's Context API was use for global state management
 - ✅ Data persistence was implemented to ensure that tasks are saved even if the app is closed or restarted.
-- ✅ filtering options were implemented to allow users to view different subsets of tasks based on their status (completed or uncompleted) via filter radio buttons to switch between different views.
+- ✅ Filtering options were implemented to allow users to view different subsets of tasks based on their status (completed or uncompleted) via filter radio buttons to switch between different views.
 - ✅ Implemented a feature that allows users to edit task details directly from the task list.
-- ✅ Added some animated modal for when user updates a task's status to enhance the visual appeal.
+- ✅ Added some animated modal for when the user updates a task's status to enhance the visual appeal.
 - ✅ Added Unit tests to cover all the files.
 - ✅ A beautiful User Interface.
 
