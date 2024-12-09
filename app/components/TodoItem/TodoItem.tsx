@@ -1,33 +1,16 @@
 import React, { FC, useRef, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
-import { TodoProps } from "../contexts/TodoContext";
+import { TodoProps } from "../../contexts/TodoContext";
 import { MaterialIcons } from "@expo/vector-icons";
-import useTodoContext from "../contexts/useTodoContext";
+import useTodoContext from "../../contexts/useTodoContext";
+import useTodoItemLogic from "./useTodoItemLogic";
 
 const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
-  const { deleteTodo, editTodo } = useTodoContext();
-  const [editable, setEditable] = useState<boolean>(false);
-  const [text, setText] = useState(title);
-  const textInputRef = useRef<TextInput>(null);
-
-  const onEdit = () => {
-    setEditable(true);
-    if (textInputRef.current) {
-      setTimeout(() => {
-        textInputRef.current?.focus();
-      }, 0); // Ensure focus happens after state update
-    }
-  };
-
-  const onSave = () => {
-    const updatedTodo: TodoProps = {
-      title: text,
-      completed,
-      id,
-    };
-    editTodo(updatedTodo);
-    setEditable(false);
-  }
+  const { deleteTodo, editable, setText, onSave, onEdit, text, textInputRef } = useTodoItemLogic({
+    id,
+    title,
+    completed,
+  });
 
   return (
     <View>

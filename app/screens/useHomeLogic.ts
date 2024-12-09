@@ -1,9 +1,9 @@
-import { useCallback, useMemo, useState } from "react";
-import { Dimensions, Animated } from "react-native";
-import { TodoProps } from "../contexts/TodoContext";
-import useTodoContext from "../contexts/useTodoContext";
+import { useMemo, useState } from "react";
+import { Animated, Dimensions } from "react-native";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
+import { TodoProps } from "../contexts/TodoContext";
+import useTodoContext from "../contexts/useTodoContext";
 
 const useHomeLogic = () => {
   const { todos, addTodo, editTodo, completedTodos, uncompletedTodos } = useTodoContext();
@@ -23,15 +23,16 @@ const useHomeLogic = () => {
     }).start();
   };
 
-  const closeModal = useCallback(() => {
+  const closeModal = () => {
     Animated.timing(slideAnim, {
       toValue: height, // Slide down to hide modal
       duration: 300,
       useNativeDriver: true,
     }).start(() => setModalVisible(false));
-  }, []);
+  };
 
-  const add = useCallback(() => {
+  const add = () => {
+    console.log("new title: ", title);
     if (title) {
       const todo: TodoProps = {
         title,
@@ -41,9 +42,9 @@ const useHomeLogic = () => {
       addTodo(todo);
       setTitle(undefined);
     }
-  }, []);
+  };
 
-  const markAsCompleted = useCallback((todo: TodoProps) => {
+  const markAsCompleted = (todo: TodoProps) => {
     const { title, completed, id } = todo;
     const updatedTodo: TodoProps = {
       title,
@@ -53,7 +54,7 @@ const useHomeLogic = () => {
     editTodo(updatedTodo);
     setSelectedOption("All");
     openModal();
-  }, []);
+  };
 
   return useMemo(
     () => ({
