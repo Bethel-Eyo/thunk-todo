@@ -17,6 +17,7 @@ Thunk-todo is a react native application built with the expo framework that enab
 - ✅ Implemented a feature that allows users to edit task details directly from the task list.
 - ✅ Added some animated modal for when user updates a task's status to enhance the visual appeal.
 - ✅ Added Unit tests to cover all the files.
+- ✅ A beautiful User Interface.
 
 ### Other things that can be done to make this more production ready.
 
