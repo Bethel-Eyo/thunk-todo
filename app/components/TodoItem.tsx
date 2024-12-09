@@ -4,11 +4,7 @@ import { TodoProps } from "../contexts/TodoContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import useTodoContext from "../contexts/useTodoContext";
 
-interface TaskItemProps {
-  todoText: string;
-}
-
-const TaskItem: FC<TodoProps> = ({ id, title, completed }) => {
+const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
   const { deleteTodo } = useTodoContext();
 
   return (
@@ -64,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TaskItem;
+export default TodoItem;

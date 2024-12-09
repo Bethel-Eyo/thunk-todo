@@ -9,7 +9,7 @@ import {
   Platform,
   TextInput,
 } from "react-native";
-import TaskItem from "../components/TaskItem";
+import TodoItem from "../components/TodoItem";
 import "react-native-get-random-values";
 import { v4 as uuidv4 } from "uuid";
 import { TodoProps } from "../contexts/TodoContext";
@@ -54,7 +54,7 @@ const Home = () => {
           <View style={styles.todoItems}>
             {todos.map((todo, index) => (
               <TouchableOpacity key={index} onPress={() => markAsCompleted(todo)}>
-                <TaskItem title={todo.title} id={todo.id} completed={todo.completed} />
+                <TodoItem title={todo.title} id={todo.id} completed={todo.completed} />
               </TouchableOpacity>
             ))}
           </View>
