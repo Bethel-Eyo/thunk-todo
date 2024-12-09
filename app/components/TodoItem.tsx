@@ -1,23 +1,68 @@
-import React, { FC } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import React, { FC, useRef, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from "react-native";
 import { TodoProps } from "../contexts/TodoContext";
 import { MaterialIcons } from "@expo/vector-icons";
 import useTodoContext from "../contexts/useTodoContext";
 
 const TodoItem: FC<TodoProps> = ({ id, title, completed }) => {
-  const { deleteTodo } = useTodoContext();
+  const { deleteTodo, editTodo } = useTodoContext();
+  const [editable, setEditable] = useState<boolean>(false);
+  const [text, setText] = useState(title);
+  const textInputRef = useRef<TextInput>(null);
+
+  const onEdit = () => {
+    setEditable(true);
+    if (textInputRef.current) {
+      setTimeout(() => {
+        textInputRef.current?.focus();
+      }, 0); // Ensure focus happens after state update
+    }
+  };
+
+  const onSave = () => {
+    const updatedTodo: TodoProps = {
+      title: text,
+      completed,
+      id,
+    };
+    editTodo(updatedTodo);
+    setEditable(false);
+  }
 
   return (
-    <View style={styles.item}>
-      <View style={styles.itemLeft}>
-        <View style={styles.square}>
-          {completed && <MaterialIcons name="done" size={20} color="green" />}
+    <View>
+      {editable && (
+        <Text style={styles.tipText}>click save icon to save changes after editing</Text>
+      )}
+      <View style={styles.item}>
+        <View style={styles.itemLeft}>
+          <View style={styles.square}>
+            {completed && <MaterialIcons name="done" size={20} color="green" />}
+          </View>
+          <TextInput
+            ref={textInputRef}
+            multiline={true}
+            editable={editable}
+            style={styles.todoText}
+            value={text}
+            onChangeText={(text) => setText(text)}
+          />
         </View>
-        <Text style={styles.todoText}>{title}</Text>
+        <View>
+          {editable ? (
+            <TouchableOpacity onPress={onSave}>
+              <MaterialIcons name="save" size={20} color="blue" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={onEdit}>
+              <MaterialIcons name="edit" size={20} color="grey" />
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity style={styles.deleteIcon} onPress={() => deleteTodo(id)}>
+            <MaterialIcons name="delete" size={20} color="red" />
+          </TouchableOpacity>
+        </View>
       </View>
-      <TouchableOpacity onPress={() => deleteTodo(id)}>
-        <MaterialIcons name="delete" size={20} color="red" />
-      </TouchableOpacity>
     </View>
   );
 };
@@ -51,12 +96,13 @@ const styles = StyleSheet.create({
   todoText: {
     maxWidth: "80%",
   },
-  circular: {
-    width: 12,
-    height: 12,
-    borderColor: "#55BCF6",
-    borderWidth: 2,
-    borderRadius: 5,
+  deleteIcon: {
+    marginTop: 10,
+  },
+  tipText: {
+    marginBottom: 5,
+    marginLeft: 5,
+    color: "grey",
   },
 });
 
